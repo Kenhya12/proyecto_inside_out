@@ -6,9 +6,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional; 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.insideout.model.Sentimiento;
 import com.insideout.model.Emotion;
 import com.insideout.model.Momento;
 
@@ -66,20 +67,27 @@ public class DiarioEnMemoria implements DiarioRepository {
                 .collect(Collectors.toList());
     }
 
-@Override
-public List<Momento> getMomentosByFecha(int dia, int mes, int anio) {
-    return momentos.stream()
-            .filter(m -> m.getFecha().getDayOfMonth() == dia &&
+    @Override
+    public List<Momento> getMomentosByFecha(int dia, int mes, int anio) {
+        return momentos.stream()
+                .filter(m -> m.getFecha().getDayOfMonth() == dia &&
                         m.getFecha().getMonthValue() == mes &&
                         m.getFecha().getYear() == anio)
-            .collect(Collectors.toList());
-}
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<Momento> getMomentosByMesAndAnio(int mes, int anio) {
         return this.momentos.stream()
-                .filter(momento -> momento.getFecha().getMonthValue() == mes && 
-                momento.getFecha().getYear() == anio)
+                .filter(momento -> momento.getFecha().getMonthValue() == mes &&
+                        momento.getFecha().getYear() == anio)
                 .collect(Collectors.toList());
     }
-}  
+
+    @Override
+    public List<Momento> getMomentosBySentimiento(Sentimiento sentimiento) {
+        return momentos.stream()
+                .filter(m -> m.getSentimiento() == sentimiento)
+                .collect(Collectors.toList());
+    }
+}

@@ -4,6 +4,7 @@ import com.insideout.dto.MomentoDTO;
 import com.insideout.mapper.MomentoMapper;
 import com.insideout.model.Emotion;
 import com.insideout.model.Momento;
+import com.insideout.model.Sentimiento;
 import com.insideout.repository.DiarioRepository;
 import com.insideout.view.ConsolaView;
 
@@ -39,6 +40,9 @@ public class MomentoController {
                     filtrarMomentos();
                     break;
                 case 5:
+                    verMomentosPorSentimiento(); 
+                    break;
+                case 6:
                     salir = true;
                     consolaView.mostrarMensaje("\nHasta la próxima!!!");
                     break;
@@ -101,6 +105,7 @@ public class MomentoController {
         }
     }
 
+    // Método para filtrar por emoción
     private void verMomentosPorEmocion() {
         String emocionStr = consolaView.solicitarEmocion();
         try {
@@ -128,6 +133,7 @@ public class MomentoController {
         }
     }
 
+    // Método para filtrar por fecha
     private void verMomentosPorFecha() {
         String fechaStr = consolaView.solicitarFechaFiltro();
         try {
@@ -141,6 +147,7 @@ public class MomentoController {
         }
     }
 
+    // Método para filtrar por mes y año
     private void verMomentosPorMesYAnio() {
         int mes = consolaView.solicitarMes();
         int anio = consolaView.solicitarAnio();
@@ -148,4 +155,31 @@ public class MomentoController {
         List<MomentoDTO> dtos = MomentoMapper.toDTOList(momentos);
         consolaView.mostrarMomentos(dtos);
     }
+
+    // Método para filtrar por sentimiento
+    private void verMomentosPorSentimiento() {
+        try {
+            String sentimientoStr = consolaView.solicitarSentimiento();
+            Sentimiento sentimiento = Sentimiento.valueOf(sentimientoStr.toUpperCase());
+            List<Momento> momentos = diarioRepository.getMomentosBySentimiento(sentimiento);
+            List<MomentoDTO> dtos = MomentoMapper.toDTOList(momentos);
+            consolaView.mostrarMomentos(dtos);
+    
+            if (!momentos.isEmpty()) {
+                String confirmacion = consolaView.solicitarConfirmacion("¿Deseas eliminar uno de estos momentos?");
+                if (confirmacion.equalsIgnoreCase("s")) {
+                    int id = consolaView.solicitarIdMomento();
+                    boolean eliminado = diarioRepository.eliminarMomento(id);
+                    if (eliminado) {
+                        consolaView.mostrarMensaje("Momento eliminado con éxito.");
+                    } else {
+                        consolaView.mostrarMensaje("No se encontró un momento con el ID proporcionado.");
+                    }
+                }
+            }
+        } catch (IllegalArgumentException e) {
+            consolaView.mostrarMensaje("El sentimiento ingresado no es válido.");
+        }
+    }
 }
+

@@ -24,12 +24,13 @@ public class ConsolaView {
     }
 
     public void mostrarMenuPrincipal() {
-        System.out.println("\nMy diario:");
-        System.out.println("1. Añadir momento");
-        System.out.println("2. Ver todos los momentos disponibles");
+        System.out.println("\nMi diario:");
+        System.out.println("1. Registrar un nuevo momento");
+        System.out.println("2. Ver todos los momentos");
         System.out.println("3. Eliminar un momento");
         System.out.println("4. Filtrar los momentos");
-        System.out.println("5. Salir");
+        System.out.println("5. Ver momentos pror sentimiento (Bueno | Malo)");  
+        System.out.println("6. Salir");
         System.out.print("Seleccione una opción: ");
     }
 
@@ -140,6 +141,12 @@ public class ConsolaView {
         System.out.print("\nIngrese la fecha (dd/mm/yyyy): ");
         return scanner.nextLine();
     }
+
+    public String solicitarSentimiento() {
+    System.out.println("\n--- Filtrar por Sentimiento ---");
+    System.out.println("Ingrese el sentimiento (BUENO o MALO): ");
+    return scanner.nextLine().trim();
+}
 
     // Método que solicita el mes y valida la entrada
     public int solicitarMes() {
