@@ -3,6 +3,8 @@ package com.insideout.mapper;
 import com.insideout.dto.MomentoDTO;
 import com.insideout.model.Momento;
 import com.insideout.model.Emotion;
+import com.insideout.model.Sentimiento;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -10,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class MomentoMapper {
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    // private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static MomentoDTO toDTO(Momento momento) {
         return new MomentoDTO(
@@ -18,21 +19,23 @@ public class MomentoMapper {
             momento.getTitulo(),
             momento.getDescripcion(),
             momento.getFecha().format(DISPLAY_FORMATTER),
-            momento.getEmocion().getName()
+            momento.getEmocion().getName(),
+            momento.getSentimiento().getNombre()
         );
     }
 
-public static Momento toEntity(MomentoDTO dto) {
+    public static Momento toEntity(MomentoDTO dto) {
         try {
             // Parsear la fecha del formato dd/MM/yyyy
-            LocalDateTime fecha = LocalDateTime.parse(dto.getFecha() + "T00:00:00", 
+            LocalDateTime fecha = LocalDateTime.parse(dto.getFecha() + "T00:00:00",
                 DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss"));
             
             return new Momento(
                 dto.getTitulo(),
                 dto.getDescripcion(),
                 fecha,
-                Emotion.valueOf(dto.getEmocion().toUpperCase())
+                Emotion.valueOf(dto.getEmocion().toUpperCase()),
+                Sentimiento.valueOf(dto.getSentimiento().toUpperCase())
             );
         } catch (Exception e) {
             System.out.println("Error parsing date: " + dto.getFecha() + ", using current date");
@@ -40,7 +43,8 @@ public static Momento toEntity(MomentoDTO dto) {
                 dto.getTitulo(),
                 dto.getDescripcion(),
                 LocalDateTime.now(),
-                Emotion.valueOf(dto.getEmocion().toUpperCase())
+                Emotion.valueOf(dto.getEmocion().toUpperCase()),
+                Sentimiento.valueOf(dto.getSentimiento().toUpperCase())
             );
         }
     }
@@ -50,4 +54,4 @@ public static Momento toEntity(MomentoDTO dto) {
                 .map(MomentoMapper::toDTO)
                 .collect(Collectors.toList());
     }
-} 
+}

@@ -1,11 +1,12 @@
 package com.insideout.controller;
 
 import com.insideout.dto.MomentoDTO;
+import com.insideout.mapper.MomentoMapper;
 import com.insideout.model.Emotion;
 import com.insideout.model.Momento;
 import com.insideout.repository.DiarioRepository;
 import com.insideout.view.ConsolaView;
-import com.insideout.mapper.MomentoMapper;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -48,7 +49,6 @@ public class MomentoController {
         }
     }
 
-    // AÑADE ESTOS MÉTODOS PRIVADOS:
     private void registrarMomento() {
         MomentoDTO dto = consolaView.solicitarDatosMomento();
         try {
@@ -67,8 +67,15 @@ public class MomentoController {
     }
 
     private void eliminarMomento() {
+        // Muestra todos los momentos para que el usuario pueda ver los IDs
+        verTodosLosMomentos();
+
+        // Solicita el ID del momento a eliminar
         int id = consolaView.solicitarIdMomento();
+
+        // Intenta eliminar el momento y muestra el resultado
         boolean eliminado = diarioRepository.eliminarMomento(id);
+
         if (eliminado) {
             consolaView.mostrarMensaje("Momento eliminado con éxito.");
         } else {
@@ -83,7 +90,10 @@ public class MomentoController {
                 verMomentosPorEmocion();
                 break;
             case 2:
-                filtrarPorFecha();
+                verMomentosPorFecha();
+                break;
+            case 3:
+                verMomentosPorMesYAnio();
                 break;
             default:
                 consolaView.mostrarMensaje("Opción de filtro no válida.");
@@ -97,13 +107,28 @@ public class MomentoController {
             Emotion emocion = Emotion.valueOf(emocionStr.toUpperCase());
             List<Momento> momentos = diarioRepository.getMomentosByEmocion(emocion);
             List<MomentoDTO> dtos = MomentoMapper.toDTOList(momentos);
+
             consolaView.mostrarMomentos(dtos);
+
+            // Si hay momentos, preguntar si se desea eliminar uno
+            if (!momentos.isEmpty()) {
+                String confirmacion = consolaView.solicitarConfirmacion("¿Deseas eliminar uno de estos momentos?");
+                if (confirmacion.equals("s")) {
+                    int id = consolaView.solicitarIdMomento();
+                    boolean eliminado = diarioRepository.eliminarMomento(id);
+                    if (eliminado) {
+                        consolaView.mostrarMensaje("Momento eliminado con éxito.");
+                    } else {
+                        consolaView.mostrarMensaje("No se encontró un momento con el ID proporcionado.");
+                    }
+                }
+            }
         } catch (IllegalArgumentException e) {
             consolaView.mostrarMensaje("La emoción ingresada no es válida.");
         }
     }
 
-    private void filtrarPorFecha() {
+    private void verMomentosPorFecha() {
         String fechaStr = consolaView.solicitarFechaFiltro();
         try {
             LocalDateTime fecha = LocalDateTime.parse(fechaStr + "T00:00:00",
@@ -114,5 +139,13 @@ public class MomentoController {
         } catch (Exception e) {
             consolaView.mostrarMensaje("Fecha inválida.");
         }
+    }
+
+    private void verMomentosPorMesYAnio() {
+        int mes = consolaView.solicitarMes();
+        int anio = consolaView.solicitarAnio();
+        List<Momento> momentos = diarioRepository.getMomentosByMesAndAnio(mes, anio);
+        List<MomentoDTO> dtos = MomentoMapper.toDTOList(momentos);
+        consolaView.mostrarMomentos(dtos);
     }
 }

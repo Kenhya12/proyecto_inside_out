@@ -165,26 +165,28 @@ Nuevos requisitos:
 INSIDE-OUT - New Sprint
 
 
-Features a implementar
-Distinguir entre momento buenos y malos
-Filtrar por momento buenos o malos
-El usuario podrá generar un archivo CSV de los momentos vivídos
-Además de momentos vividos ahora el diario debe poder registrar películas vistas
-Para añadir una película se necesitará … (2 Opciones disponibles):
-Dificultad Media - En el caso de consumir la API: el id de Imdb (Ej: https://www.imdb.com/es-es/title/tt0118583/?ref_=fn_all_ttl_1)
-Si no se consume la API: Id de Imdb, el título, el género/os, la emoción que nos provocó, año de estreno.
-Un filtro de películas por género
-Se guardará las películas únicamente en un archivo CSV
-Se deberá obtener los datos de una API si elegimos obtener los datos de ella (https://www.freepublicapis.com/free-movie-api)
+Features a implementar:
+
+- Distinguir entre momento buenos y malos
+- Filtrar por momento buenos o malos
+- El usuario podrá generar un archivo CSV de los momentos vivídos
+- Además de momentos vividos ahora el diario debe poder registrar películas vistas
+- Para añadir una película se necesitará … (2 Opciones disponibles):
+- Dificultad Media - En el caso de consumir la API: el id de Imdb (Ej: https://www.imdb.com/es-es/title/tt0118583/?ref_=fn_all_ttl_1)
+- Si no se consume la API: Id de Imdb, el título, el género/os, la emoción que nos provocó, año de estreno.
+- Un filtro de películas por género
+- Se guardará las películas únicamente en un archivo CSV
+- Se deberá obtener los datos de una API si elegimos obtener los datos de ella (https://www.freepublicapis.com/free-movie-api)
+
 Se deberá guardar los siguientes campos:
-ImdbId
-Título
-Género o Géneros
-Emoción
-Fecha de estreno (release year)
-Fecha de creación
-Se podrá solicitar el listado de películas
-Se podrá eliminar una película
+- ImdbId
+- Título
+- Género o Géneros
+- Emoción
+- Fecha de estreno (release year)
+- Fecha de creación
+- Se podrá solicitar el listado de películas
+- Se podrá eliminar una película
 
 -----------------------------------------------------------------------------------------------------------
 Enlaces:

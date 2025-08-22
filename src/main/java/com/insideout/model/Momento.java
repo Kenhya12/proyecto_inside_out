@@ -10,21 +10,24 @@ public class Momento {
     private final String descripcion;
     private final LocalDateTime fecha;
     private final Emotion emocion;
+    private final Sentimiento sentimiento;
 
-    public Momento(String titulo, String descripcion, LocalDateTime fecha, Emotion emocion) {
+    public Momento(String titulo, String descripcion, LocalDateTime fecha, Emotion emocion, Sentimiento sentimiento) {
         this.id = counter.incrementAndGet();
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.emocion = emocion;
+        this.sentimiento = sentimiento;
     }
 
-    public Momento(int id, String titulo, String descripcion, LocalDateTime fecha, Emotion emocion) {
+    public Momento(int id, String titulo, String descripcion, LocalDateTime fecha, Emotion emocion, Sentimiento sentimiento) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.emocion = emocion;
+        this.sentimiento = sentimiento;
     }
 
     // GETTERS (todos deben existir)
@@ -48,9 +51,13 @@ public class Momento {
         return emocion;
     }
 
+    public Sentimiento getSentimiento() {
+        return sentimiento;
+    }
+
     @Override
     public String toString() {
-        return "ID: " + id + ", Título: " + titulo + ", Emoción: " + emocion.getName() +
-                ", Fecha: " + fecha + ", Descripción: " + descripcion;
+        return "ID: " + id + ", Título: " + titulo + ", Emoción: " + emocion.getName() + ", Sentimiento: " + sentimiento
+                + ", Fecha: " + fecha + ", Descripción: " + descripcion;
     }
-} 
+}

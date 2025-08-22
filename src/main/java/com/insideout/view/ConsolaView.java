@@ -1,18 +1,17 @@
 package com.insideout.view;
 
-import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
+import com.insideout.dto.MomentoDTO;
+import com.insideout.model.Emotion;
+import com.insideout.model.Sentimiento;
+
+//import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import com.insideout.dto.MomentoDTO;
-import com.insideout.model.Emotion;
 
 public class ConsolaView {
     private final Scanner scanner = new Scanner(System.in);
-    // private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    // Método que FALTA en tu ConsolaView original
     public int leerOpcion() {
         try {
             int opcion = scanner.nextInt();
@@ -39,20 +38,41 @@ public class ConsolaView {
     }
 
     public MomentoDTO solicitarDatosMomento() {
-    System.out.print("\nIngrese el título: ");
-    String titulo = scanner.nextLine();
-    
-    System.out.print("Ingresa la fecha (dd/mm/yyyy): ");
-    String fechaStr = scanner.nextLine(); // Esto ya está en formato dd/MM/yyyy
-    
-    System.out.print("Ingrese la descripción: ");
-    String descripcion = scanner.nextLine();
-    
-    Emotion emocion = solicitarEmocionMenu();
-    
-    // Envía la fecha directamente en formato dd/MM/yyyy (sin convertir a ISO)
-    return new MomentoDTO(0, titulo, descripcion, fechaStr, emocion.name());
-}
+        System.out.print("\nIngrese el título: ");
+        String titulo = scanner.nextLine();
+
+        System.out.print("Ingresa la fecha (dd/mm/yyyy): ");
+        String fechaStr = scanner.nextLine();
+        System.out.print("Ingrese la descripción: ");
+        String descripcion = scanner.nextLine();
+
+        Emotion emocion = solicitarEmocionMenu();
+        Sentimiento sentimiento = solicitarSentimientoMenu(); // Nuevo
+
+        // Ahora se pasan 6 parámetros al constructor de MomentoDTO
+        return new MomentoDTO(0, titulo, descripcion, fechaStr, emocion.name(), sentimiento.name());
+    }
+
+    private Sentimiento solicitarSentimientoMenu() {
+        System.out.println("\n¿El momento es bueno o malo?");
+        System.out.println("1. Bueno");
+        System.out.println("2. Malo");
+
+        System.out.print("Ingrese su opción: ");
+        try {
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+            if (opcion == 1)
+                return Sentimiento.BUENO;
+            if (opcion == 2)
+                return Sentimiento.MALO;
+        } catch (InputMismatchException e) {
+            scanner.nextLine();
+        }
+
+        System.out.println("Opción inválida, seleccionando Bueno por defecto");
+        return Sentimiento.BUENO;
+    }
 
     private Emotion solicitarEmocionMenu() {
         System.out.println("\nSelecciona una emoción:");
@@ -60,7 +80,7 @@ public class ConsolaView {
         for (int i = 0; i < emociones.length; i++) {
             System.out.println((i + 1) + ". " + emociones[i].getName());
         }
-        
+
         System.out.print("Ingrese su opción: ");
         try {
             int opcion = scanner.nextInt();
@@ -71,28 +91,10 @@ public class ConsolaView {
         } catch (InputMismatchException e) {
             scanner.nextLine();
         }
-        
+
         System.out.println("Opción inválida, seleccionando Alegría por defecto");
         return Emotion.ALEGRIA;
     }
-
-    private LocalDateTime parseFecha(String fechaStr) {
-    try {
-        // Parsear formato dd/MM/yyyy
-        String[] partes = fechaStr.split("/");
-        if (partes.length == 3) {
-            int dia = Integer.parseInt(partes[0]);
-            int mes = Integer.parseInt(partes[1]);
-            int anio = Integer.parseInt(partes[2]);
-            return LocalDateTime.of(anio, mes, dia, 0, 0);
-        }
-    } catch (Exception e) {
-        System.out.println("Fecha inválida: " + fechaStr);
-    }
-    
-    System.out.println("Usando fecha actual por defecto");
-    return LocalDateTime.now();
-} 
 
     public int solicitarIdMomento() {
         System.out.print("\nIngresa el identificador del momento: ");
@@ -109,9 +111,10 @@ public class ConsolaView {
     public int mostrarMenuFiltros() {
         System.out.println("\nFiltrar por ...:");
         System.out.println("1. Emoción");
-        System.out.println("2. Fecha");
+        System.out.println("2. Fecha (dd/mm/yyyy)");
+        System.out.println("3. Mes y Año");
         System.out.print("Ingrese una opción: ");
-        
+
         try {
             int opcion = scanner.nextInt();
             scanner.nextLine();
@@ -123,13 +126,53 @@ public class ConsolaView {
     }
 
     public String solicitarEmocion() {
-        System.out.print("Ingrese la emoción (ALEGRIA, TRISTEZA, IRA, ASCO, MIEDO, ANSIEDAD, ENVIDIA, VERGUENZA, ABURRIMIENTO, NOSTALGIA): ");
+        System.out.print(
+                "Ingrese la emoción (Alegría, Tristeza, Ira, Asco, Miedo, Ansiedad, Envidia, Verguenza, Aburrimiento, Nostalgia): ");
         return scanner.nextLine().toUpperCase();
+    }
+
+    public String solicitarConfirmacion(String mensaje) {
+        System.out.print(mensaje + " (s/n): ");
+        return scanner.nextLine().toLowerCase();
     }
 
     public String solicitarFechaFiltro() {
         System.out.print("\nIngrese la fecha (dd/mm/yyyy): ");
         return scanner.nextLine();
+    }
+
+    // Método que solicita el mes y valida la entrada
+    public int solicitarMes() {
+        while (true) {
+            System.out.print("\nIngrese el mes (1-12): ");
+            try {
+                int mes = Integer.parseInt(scanner.nextLine());
+                if (mes >= 1 && mes <= 12) {
+                    return mes;
+                } else {
+                    mostrarMensaje("Mes no válido. Por favor, ingrese un número entre 1 y 12.");
+                }
+            } catch (NumberFormatException e) {
+                mostrarMensaje("Entrada no válida. Por favor, ingrese un número.");
+            }
+        }
+    }
+
+    // Método que solicita el año y valida la entrada
+    public int solicitarAnio() {
+        while (true) {
+            System.out.print("Ingrese el año (yyyy): ");
+            try {
+                int anio = Integer.parseInt(scanner.nextLine());
+                if (anio > 0) {
+                    return anio;
+                } else {
+                    mostrarMensaje("Año no válido. Por favor, ingrese un número positivo.");
+                }
+            } catch (NumberFormatException e) {
+                mostrarMensaje("Entrada no válida. Por favor, ingrese un número.");
+            }
+        }
     }
 
     public void mostrarMomentos(List<MomentoDTO> momentos) {
@@ -142,9 +185,4 @@ public class ConsolaView {
             }
         }
     }
-
-    // Método original de tu ConsolaView (para mantener compatibilidad)
-    public void mostrarMenu() {
-        mostrarMenuPrincipal();
-    }
-} 
+}
