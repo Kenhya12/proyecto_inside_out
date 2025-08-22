@@ -3,6 +3,8 @@ package com.insideout.mapper;
 import com.insideout.dto.MomentoDTO;
 import com.insideout.model.Emotion;
 import com.insideout.model.Momento;
+import com.insideout.model.Sentimiento;
+
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -14,7 +16,7 @@ class MomentoMapperTest {
     @Test
     void testToDTO() {
         LocalDateTime now = LocalDateTime.now();
-        Momento momento = new Momento(1, "Viaje", "Un gran viaje", now, Emotion.MIEDO);
+        Momento momento = new Momento(1, "Viaje", "Un gran viaje", now, Emotion.MIEDO, Sentimiento.BUENO);
         MomentoDTO dto = MomentoMapper.toDTO(momento);
 
         assertNotNull(dto);
@@ -26,19 +28,21 @@ class MomentoMapperTest {
     @Test
     void testToEntity() {
         String fechaStr = "21/08/2025";
-        MomentoDTO dto = new MomentoDTO(0, "Cena", "Cena con amigos", fechaStr, "ALEGRIA");
+        MomentoDTO dto = new MomentoDTO(0, "Cena", "Cena con amigos", fechaStr, "ALEGRIA", "BUENO");
         Momento momento = MomentoMapper.toEntity(dto);
 
         assertNotNull(momento);
         assertEquals("Cena", momento.getTitulo());
         assertEquals(Emotion.ALEGRIA, momento.getEmocion());
     }
-    
+
     @Test
     void testToDTOList() {
         // Arrange: Crea una lista de Momento
-        Momento m1 = new Momento(1, "Momento 1", "Descripción 1", LocalDateTime.now(), Emotion.ALEGRIA);
-        Momento m2 = new Momento(2, "Momento 2", "Descripción 2", LocalDateTime.now(), Emotion.TRISTEZA);
+        Momento m1 = new Momento(1, "Momento 1", "Descripción 1", LocalDateTime.now(), Emotion.ALEGRIA,
+                Sentimiento.BUENO);
+        Momento m2 = new Momento(2, "Momento 2", "Descripción 2", LocalDateTime.now(), Emotion.TRISTEZA,
+                Sentimiento.MALO);
         List<Momento> momentos = Arrays.asList(m1, m2);
 
         // Act: Convierte la lista a DTO
