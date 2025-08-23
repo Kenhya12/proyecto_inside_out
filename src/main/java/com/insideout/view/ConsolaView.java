@@ -29,7 +29,7 @@ public class ConsolaView {
         System.out.println("2. Ver todos los momentos");
         System.out.println("3. Eliminar un momento");
         System.out.println("4. Filtrar los momentos");
-        System.out.println("5. Ver momentos pror sentimiento (Bueno | Malo)");  
+        System.out.println("5. Ver momentos por sentimiento (Bueno | Malo)");  
         System.out.println("6. Salir");
         System.out.print("Seleccione una opción: ");
     }

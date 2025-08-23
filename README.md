@@ -1,213 +1,162 @@
-Project Inside Out
-Instrucciones
+# Inside Out: Diario de Emociones
 
-Se os ha encargado la creación de una aplicación de consola con la cual el usuario podrá gestionar momentos vividos, Mi Diario. Cada momento tendrá una emoción asignada junto con la fecha de cuando ocurrio.
+## Autor: Paula Apsé
 
-Cada momento vivído tendrá un identificador, un título, una descripción, una emoción, fecha del momento, fecha de creación, fecha de modificación.
+Este proyecto es una aplicación de consola en Java que funciona como un diario personal. Permite a los usuarios registrar, consultar y gestionar sus "momentos" diarios, incluyendo la fecha, un título, una descripción, la emoción principal asociada y si fue una experiencia buena o mala. La aplicación está diseñada para ser una herramienta sencilla y efectiva para la autorreflexión y el registro de emociones.
 
-Listado de emociones:
+## Pre-requisitos
 
-    Alegría
-    Tristeza
-    Ira
-    Asco
-    Miedo
-    Ansiedad
-    Envidia
-    Vergüenza
-    Aburrimiento
-    Nostalgia
+Para poder ejecutar el proyecto, es necesario tener instalado:
 
-Por cada historia de usuario se deberán redactar los criterios de aceptación.
+    * Java Development Kit (JDK): El proyecto está construido con Java 21, requiere el entorno de desarrollo para compilar y ejecutar el código.
 
-Historias de usuario
+    * Extension Pack for Java en VS Code: Es un paquete de extensiones que incluye soporte para Java, Maven, Debugger, etc.
 
-    COMO usuario QUIERO añadir un momento vivido PARA poder visualisarlo cuando lo necesite recordar
+    * Apache Maven: Se utiliza como una herramienta de construcción y gestión de dependencias. Maven se encargará de descargar y gestionar automáticamente las librerías de terceros necesarias para el proyecto.
 
-    COMO usuario QUIERO recuperar la lista de lo momentos vividos registrados PARA poder repasarlos
+    * JUnit 5 y Hamcrest: Son librerías que se utilizan para crear y ejecutar las pruebas unitarias, son un requisito fundamental para el correcto funcionamiento de los tests.
 
-    COMO usuario QUIERO suprimir un momento vivido PARA evitar duplicados y mantener la lista de momentos organizada
+Según el avance del proyecto, no fue necesaria la instalación de APIs, plugins ni de dependencias adicionales.
 
-    COMO usuario QUIERO obtener los momentos vividos según su emoción PARA poder visualizarlos
-
-    COMO usuario QUIERO obtener los momentos vividos en un mes determinado
-
-    COMO usuario QUIERO salir del programa PARA poder iniciar otro
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 1
-
-Ingrese el título: Un día en el parque de atracciones
-Ingresa la fecha (dd/mm/year): 01/05/2024
-Ingrese la descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed eros vel massa scelerisque convallis interdum ut purus.
-
-Selecciona una emoción:
-1. Alegría
-2. Tristeza
-3. Ira
-4. Asco
-5. Miedo
-6. Ansiedad
-7. Envidia
-8. Vergüenza
-9. Aburrimiento
-10. Nostalgia
-Ingrese su opción: 1
-Momento vivído añadido correctamente.
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 2
-
-Lista de momentos vividos:
-1. Ocurrio el: 01/01/2024. Título: Un día en el parque de atracciones. Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed eros vel massa scelerisque convallis interdum ut purus. Emoción: Alegría
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 3
-
-Ingresa el identificador del momento: 1
-Momento vivído eliminado correctamente.
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 4
-
-Filtar por ...:
-1. Emoción
-2. Fecha
-Ingrese una opción: 1
-
-Selecciona una emoción:
-1. Alegría
-2. Tristeza
-3. Ira
-4. Asco
-5. Miedo
-6. Ansiedad
-7. Envidia
-8. Vergüenza
-9. Aburrimiento
-10. Nostalgia
-Ingrese su opción: 1
-
-Lista de momentos vividos:
-1. Ocurrio el: 01/01/2024. Título: Un día en el parque de atracciones. Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed eros vel massa scelerisque convallis interdum ut purus. Emoción: Alegría
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 4
-
-Filtrar por ...:
-1. Emoción
-2. Fecha
-Ingrese una opción: 2
-
-Ingrese la fecha (dd/mm/year): 01/01/2024
-
-Lista de momentos vividos:
-1. Ocurrio el: 01/01/2024. Título: Un día en el parque de atracciones. Descripción: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed eros vel massa scelerisque convallis interdum ut purus. Emoción: Alegría
-
-My diario:
-1. Añadir momento
-2. Ver todos los momentos disponibles
-3. Eliminar un momento
-4. Filtrar los momentos
-5. Salir
-Seleccione una opción: 5
-
-Hasta la próxima!!!
-
-🏁 Rúbrica de evaluación
-
-    Interfaz de usuario
-        La interfaz de usuario permite añadir (10%)
-        La interfaz de usuario permite visualizar todos los momentos (10%)
-        La interfaz de usuario permite eliminar un momento (10%)
-        La interfaz de usuario permite filtrar por emoción (10%)
-        La interfaz de usuario permite filtrar por fecha (10%)
-
-    Persistencia de datos
-        Se hace un uso adecuado de la interface List<E>. (10%)
-
-    Código y Buenas Prácticas
-        Tests de cobertura mínimo un 70% (20%)
-        El código está bien estructurado (10%)
-        Correcta separación de responsabiidades. S de "SOLID" (10%)
-
--------------------------------------------------------------------
--------------------------------------------------------------------
-
-Nuevos requisitos:
-
-    Listado de los nuevos requisitos
-INSIDE-OUT - New Sprint
+## 🚀 Diagrama de clases
 
 
-Features a implementar:
+```mermaid
 
-- Distinguir entre momento buenos y malos
-- Filtrar por momento buenos o malos
-- El usuario podrá generar un archivo CSV de los momentos vivídos
-- Además de momentos vividos ahora el diario debe poder registrar películas vistas
-- Para añadir una película se necesitará … (2 Opciones disponibles):
-- Dificultad Media - En el caso de consumir la API: el id de Imdb (Ej: https://www.imdb.com/es-es/title/tt0118583/?ref_=fn_all_ttl_1)
-- Si no se consume la API: Id de Imdb, el título, el género/os, la emoción que nos provocó, año de estreno.
-- Un filtro de películas por género
-- Se guardará las películas únicamente en un archivo CSV
-- Se deberá obtener los datos de una API si elegimos obtener los datos de ella (https://www.freepublicapis.com/free-movie-api)
+---
+config:
+  theme: mc
+  layout: elk
+---
+classDiagram
+direction LR
+    class DiarioEnMemoria {
+	    - List momentos
+	    - static Atomicinteger counter
+	    + DiarioEnMemoria()
+	    + addMomento(momento momento) : void
+	    + eliminarMomento(int id) : boolean
+	    + getTodosLosMomentos() : List
+	    getMomentoByld(int id) : Momento
+	    + getMomentosByEmocion(Emotion emocion) : List
+	    +getmomentosBySentimiento(Sentimiento sentimiento) : List
+    }
+    class DiarioRepository {
+	    + addMomento(Momento momento) : void
+	    + eliminarmomento(int id) : boolean
+	    + getTodosLosMomentos() : List
+	    getMomentoByd(int id) : Momento
+	    + getMomentosByEmocion(Emotion emocion) : List
+	    + getMomentosBySentimiento(Sentimiento sentimiento) : List
+    }
+    class MomentoController {
+	    - DiarioRepository diarioRepository
+	    - ConsolaView consolaView
+	    - MomentoController()
+	    - Iniciar() : void
+	    - registrarMomento() : void
+	    - verTodosLosMomentos() :void
+	    - eliminarMomento() : void
+	    - filtrarMomentos() : void
+	    - verMomentosporEmocion() : void
+	    verMomentosporSentimiento() : void
+    }
+    class Momento {
+	    - final int id
+	    - final String titulo
+	    - final String descripcion
+	    - final LocalDateTime fecha
+	    - final Emotion emocion
+	    - final Sentimiento sentimiento
+	    + Momento()
+	    + getters()
+	    + toString()
+    }
+    class ConsolaView {
+	    - Scanner scanner
+	    + ConsolaView()
+	    + mostrarMenuPrincipal() : void
+	    + solicitarDatosMomento() : momentoDTO
+	    + solicitarOpcion() : String
+	    + mostrarMomentos(List momentos) : void
+	    + mostrarmensaje(String mensaje) : void
+	    + solicitarIdMomento() : int
+	    + solicitarEmocion() : Emotion
+	    + solicitarSentimiento() : Sentimiento
+	    + solicitarConfirmacion() : boolean
+    }
+    class App {
+	    +Main()
+    }
+    class Emotion {
+	    ALEGRÍA
+	    TRISTEZA
+	    IRA
+	    ASCO
+	    MIEDO
+	    ANSIEDAD
+	    ENVIDIA
+	    VERGUENZA
+	    ABURRIMIENTO
+	    NOSTALGIA
+	    + getName() : String
+    }
+    class Sentimiento {
+	    BUENO
+	    MALO
+	    + getNombre() :String
+    }
+    class MomentoDTO {
+	    - int id
+	    - String titulo
+	    - String descripción
+	    - String fecha
+	    - String emocion
+	    - String sentimiento
+	    + MomentoDTO()
+	    + getters()
+	    + setters()
+	    + toString()
+    }
+    class MomentoMapper {
+	    + toDTO(Momento momento) : MomentoDTO
+	    + toEntity(MomentoDTO dto) : Momento
+	    + toDTOList(List momentos) : List
+    }
 
-Se deberá guardar los siguientes campos:
-- ImdbId
-- Título
-- Género o Géneros
-- Emoción
-- Fecha de estreno (release year)
-- Fecha de creación
-- Se podrá solicitar el listado de películas
-- Se podrá eliminar una película
+    MomentoController --* ConsolaView
+    MomentoController --* DiarioRepository
+    DiarioEnMemoria --* DiarioRepository
+    Emotion --o Momento
+    Sentimiento --o Momento
+    ConsolaView --* Emotion
+    ConsolaView --* Sentimiento
+    ConsolaView --* Momento
+    ConsolaView --* MomentoDTO
+    MomentoController --* MomentoDTO
+    Momento --o DiarioRepository
+    MomentoController --* MomentoMapper
+    MomentoMapper --* Momento
+    MomentoMapper --* MomentoDTO
+    App --* MomentoController
 
------------------------------------------------------------------------------------------------------------
-Enlaces:
+	class MomentoController:::Aqua
+	class Momento:::Peach
+	class ConsolaView:::Sky
+	class App:::Class_02
+	class Emotion:::Ash
+	class Emotion:::Peach
+	class Sentimiento:::Peach
 
-    Repositorio del proyecto
-    Java User Input
-    Unit Testing of System.out.print
+	classDef Ash :,stroke-width:1px, stroke-dasharray:none, stroke:#999999, fill:#EEEEEE, color:#000000
+	classDef Peach :,stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
+	classDef Sky :,stroke-width:1px, stroke-dasharray:none, stroke:#374D7C, fill:#E2EBFF, color:#374D7C
+	classDef Aqua :,stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
+	classDef Class_02 :,stroke-width:4px, stroke-dasharray: 0
 
-Entregables:
+    ```
 
-    Enlace al repositorio original del proyecto de GitHub
-    Enlaces de los forks de los compañeros
-    El Readme deberá estar debidamente trabajado (Ver Secciones del Readme)
-    Enlace a la presentación del proyecto
 
-Secciones del Readme: 
 
-    Título
-    Descripción con sinopsis del proyecto
-    Pre-requisitos (Que se necesita instalar para poder ejecutar el proyecto)
-    Pasos para la instalación
-    Ejecución de los tests (Captura de la cobertura)
-    Diagramas realizados
-    Autores
+
+
