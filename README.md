@@ -18,6 +18,12 @@ Para poder ejecutar el proyecto, es necesario tener instalado:
 
 Según el avance del proyecto, no fue necesaria la instalación de APIs, plugins ni de dependencias adicionales.
 
+## Imagen cobertura de Test
+![Cobertura de test](./src/image/Test de cobertura Inside Out.png)
+
+## Images Diagrama de Clase
+![Cobertura de test](./src/image/Diagrama Inside Out _ Mermaid Chart-2025-08-23-174452.png)
+
 ## 🚀 Diagrama de clases
 
 
@@ -28,38 +34,32 @@ config:
   theme: mc
   layout: elk
 ---
-classDiagram
+classDiagram 
 direction LR
     class DiarioEnMemoria {
 	    - List momentos
 	    - static Atomicinteger counter
 	    + DiarioEnMemoria()
-	    + addMomento(momento momento) : void
-	    + eliminarMomento(int id) : boolean
+	    + addMomento(momento momento) : void 
 	    + getTodosLosMomentos() : List
-	    getMomentoByld(int id) : Momento
+	    + eliminarMomento(int id) : boolean
+	    + buscarMomentoPorId(int id)
 	    + getMomentosByEmocion(Emotion emocion) : List
+	    + getMomentosByFecha(LocalDateTime fecha)
+	    + getMomentosByFecha(int dia, int mes, int anio)
+	    + getMomentosByMesAndAnio(int mes, int anio)
 	    +getmomentosBySentimiento(Sentimiento sentimiento) : List
     }
     class DiarioRepository {
 	    + addMomento(Momento momento) : void
-	    + eliminarmomento(int id) : boolean
 	    + getTodosLosMomentos() : List
-	    getMomentoByd(int id) : Momento
+	    + eliminarmomento(int id) : boolean
+	    + buscarMomentoPorId(int id): Optional
 	    + getMomentosByEmocion(Emotion emocion) : List
+	    + getMomentosByFecha(LocalDateTime fecha) : List
+	    + getMomentosByFecha(int dia, int mes, int anio) : List
+	    + getMomentosByMesAndAnio(int mes, int anio) : List
 	    + getMomentosBySentimiento(Sentimiento sentimiento) : List
-    }
-    class MomentoController {
-	    - DiarioRepository diarioRepository
-	    - ConsolaView consolaView
-	    - MomentoController()
-	    - Iniciar() : void
-	    - registrarMomento() : void
-	    - verTodosLosMomentos() :void
-	    - eliminarMomento() : void
-	    - filtrarMomentos() : void
-	    - verMomentosporEmocion() : void
-	    verMomentosporSentimiento() : void
     }
     class Momento {
 	    - final int id
@@ -76,14 +76,18 @@ direction LR
 	    - Scanner scanner
 	    + ConsolaView()
 	    + mostrarMenuPrincipal() : void
-	    + solicitarDatosMomento() : momentoDTO
-	    + solicitarOpcion() : String
-	    + mostrarMomentos(List momentos) : void
 	    + mostrarmensaje(String mensaje) : void
+	    + solicitarDatosMomento() : momentoDTO
+	    + solicitarSentimientoMenu() : Sentimiento
+	    + solicitarEmocionMenu() : Emotion
 	    + solicitarIdMomento() : int
-	    + solicitarEmocion() : Emotion
-	    + solicitarSentimiento() : Sentimiento
+	    + mostrarMenuFiltros() : int
+	    + solicitarEmocion() : boolean
 	    + solicitarConfirmacion() : boolean
+	    + solicitarFechaFiltro() : int
+	    + solicitarSentimiento() : Sentimiento
+	    + solicitarAnio() : int
+	    + mostrarMomentos(List momentos) : void
     }
     class App {
 	    +Main()
@@ -123,6 +127,20 @@ direction LR
 	    + toEntity(MomentoDTO dto) : Momento
 	    + toDTOList(List momentos) : List
     }
+    class MomentoController {
+	    - DiarioRepository diarioRepository
+	    - ConsolaView consolaView
+	    - MomentoController()
+	    - Iniciar() : void
+	    - registrarMomento() : void
+	    - verTodosLosMomentos() :void
+	    - eliminarMomento() : void
+	    - filtrarMomentos() : void
+	    - verMomentosPorEmocion() : void
+		  - verMomentosPorFecha () : void
+		  - verMomentosPorMesYAnio() : void
+	    - verMomentosporSentimiento() : void
+    }
 
     MomentoController --* ConsolaView
     MomentoController --* DiarioRepository
@@ -140,19 +158,21 @@ direction LR
     MomentoMapper --* MomentoDTO
     App --* MomentoController
 
-	class MomentoController:::Aqua
 	class Momento:::Peach
 	class ConsolaView:::Sky
 	class App:::Class_02
 	class Emotion:::Ash
 	class Emotion:::Peach
 	class Sentimiento:::Peach
+	class MomentoController:::Aqua
 
 	classDef Ash :,stroke-width:1px, stroke-dasharray:none, stroke:#999999, fill:#EEEEEE, color:#000000
 	classDef Peach :,stroke-width:1px, stroke-dasharray:none, stroke:#FBB35A, fill:#FFEFDB, color:#8F632D
 	classDef Sky :,stroke-width:1px, stroke-dasharray:none, stroke:#374D7C, fill:#E2EBFF, color:#374D7C
 	classDef Aqua :,stroke-width:1px, stroke-dasharray:none, stroke:#46EDC8, fill:#DEFFF8, color:#378E7A
 	classDef Class_02 :,stroke-width:4px, stroke-dasharray: 0
+	classDef Class_03 :,stroke-width:4px, stroke-dasharray: 5
+
 
     ```
 
